@@ -12,7 +12,7 @@ def hello():
 @app.route('/Welcome/<name>')
 def Welcome_name(name):
     hostname = socket.gethostname()
-    verbiage = 'Hello!! ' + name + 'You have been server by Container: ' + hostname
+    verbiage = 'Hello ' + name + '!! You have been server by Container: ' + hostname
     return verbiage
   
 if __name__ == "__main__":
