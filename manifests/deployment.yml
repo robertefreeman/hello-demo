@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hello-app
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: hello-app
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: hello
-        image: docker.io/robertfreeman/hello-app:latest
+        image: docker.io/robertfreeman/hellodemo:latest
         ports:
         - containerPort: 80
