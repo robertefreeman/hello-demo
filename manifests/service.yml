@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloapp-service
+spec:
+  type: NodePort
+  selector:
+    app: nginx-hello
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+      nodePort: 30007
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: helloapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: helloapp.9a17682bb7744978bf3a.southcentralus.aksapp.io
+    http:
+      paths:
+      - backend:
+          serviceName: hello-service
+          servicePort: 80
+        path: /
