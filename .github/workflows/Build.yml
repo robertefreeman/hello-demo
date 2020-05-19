@@ -13,7 +13,7 @@ jobs:
       with:
         username: ${{ secrets.GITHUBUSER }}
         password: ${{ secrets.GITHUBTOKEN }}
-        registyry: docker.pky.github.com
+        registyry: docker.pkg.github.com
         repository: robertefreeman/hello-demo/hellodemo
         tags: latest
         tag_with_ref: true
