@@ -7,9 +7,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+  
+    - name: Checkout github code
+      uses: actions/checkout@master
     
-    - uses: docker/build-push-action@v1
+    - name: Build, Tag, and push container image to packages
+      uses: docker/build-push-action@v1
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUBTOKEN }}
@@ -17,23 +20,29 @@ jobs:
         repository: robertefreeman/hello-demo/hellodemo
         tags: latest, ${{ github.run_number }}
         tag_with_ref: true
-    
-    - uses: azure/docker-login@v1
-      with:
-        login-server: docker.pkg.github.com
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUBTOKEN }}
 
-    - uses: azure/aks-set-context@v1
+    - name: login to AKS cluster
+      uses: azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CRED }}' # Azure credentials
         resource-group: girhub-demos
         cluster-name: r0bk8s
-        
-    - uses: Azure/k8s-deploy@v1
+    
+    - name: create k8s secret for pulling container image
+      uses: azure/k8s-actions/k8s-create-secret@master
+      with:
+        container-registry-url: docker.pkg.github.com
+        container-registry-username: ${{ github.actor }}
+        container-registry-password: ${{ ssecrets.GITHUBTOKEN }}
+        secret-name: demo-k8s-secret
+    
+    - name: deploy app to aks
+      uses: Azure/k8s-deploy@v1
       with:
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
         images: |
           docker.pkg.github.com/robertefreeman/hello-demo/hellodemo
+        imagepullsecrets: |
+          demo-k8s-secret
