@@ -9,7 +9,7 @@
 
 # Lets say hello ... 
 
-with automated build, deploy and security
+with automated build, deploy and security!
 
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
