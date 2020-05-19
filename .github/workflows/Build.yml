@@ -30,4 +30,4 @@ jobs:
           manifests/deployment.yml
           manifests/service.yml
         images: |
-          docker.io/robertfreeman/hellodemo
+          docker.pkg.github.com/robertefreeman/hello-demo/hellodemo
