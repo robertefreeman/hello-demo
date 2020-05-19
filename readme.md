@@ -3,7 +3,8 @@
 ![](https://github.com/robertefreeman/hello-demo/workflows/Build%20and%20deploy/badge.svg)
 
 
-[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)
+[![GitHub commits](https://img.shields.io/github/commits-since/Naereen/StrapDown.js/v1.0.0.svg)](https://GitHub.com/Naereen/StrapDown.js/commit/)
+
 
 
 # Lets say hello ... 
