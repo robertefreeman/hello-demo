@@ -11,12 +11,18 @@ jobs:
     
     - uses: docker/build-push-action@v1
       with:
-        username: ${{ secrets.GITHUBUSER }}
+        username: ${{ github.actor }}
         password: ${{ secrets.GITHUBTOKEN }}
         registry: docker.pkg.github.com
         repository: robertefreeman/hello-demo/hellodemo
-        tags: latest
+        tags: latest, ${{ github.run_number }}
         tag_with_ref: true
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: docker.pkg.github.com
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUBTOKEN }}
 
     - uses: azure/aks-set-context@v1
       with:
