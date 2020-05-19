@@ -33,7 +33,7 @@ jobs:
       with:
         container-registry-url: docker.pkg.github.com
         container-registry-username: ${{ github.actor }}
-        container-registry-password: ${{ ssecrets.GITHUBTOKEN }}
+        container-registry-password: ${{ secrets.GITHUBTOKEN }}
         secret-name: demo-k8s-secret
     
     - name: deploy app to aks
