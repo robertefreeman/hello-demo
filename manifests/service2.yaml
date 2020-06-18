@@ -23,6 +23,6 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: helloapp
+          serviceName: hello-app
           servicePort: 80
         path: /
