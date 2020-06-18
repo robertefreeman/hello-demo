@@ -6,10 +6,10 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     hostname = socket.gethostname()
-    verbiage = 'Hello!!! You have been served by Countainer: ' + hostname
+    verbiage = 'Hello Robert!!! You have been served by Countainer: ' + hostname
     return verbiage
 
-@app.route('/Welcome/<name>')
+@app.route('/welcome/<name>')
 def Welcome_name(name):
     hostname = socket.gethostname()
     verbiage = 'Hello ' + name + '!! You have been server by Container: ' + hostname
