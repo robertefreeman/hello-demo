@@ -9,7 +9,7 @@ spec:
     protocol: TCP	
     targetPort: 8000
   selector:
-    app: hello-app
+    app: hello-appstaging
 ---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
