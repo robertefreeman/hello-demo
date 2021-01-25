@@ -20,56 +20,75 @@ jobs:
         repository: robertefreeman/hello-demo/hellodemo
         tags: ${{ github.sha }} 
         tag_with_ref: true
-
-    - name: login to AKS cluster
-      uses: azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CRED }}' # Azure credentials
-        resource-group: demoAks
-        cluster-name: demoAks1
- 
-    - name: Set K8s secret for pulling container image
-      uses: azure/k8s-create-secret@v1
-      with:
-        namespace: 'default'
-        container-registry-url: ' docker.pkg.github.com'
-        container-registry-username: ${{ github.actor }}
-        container-registry-password: ${{ secrets.GITHUBTOKEN }}
-        secret-name: 'demo-k8s-secret'
-      id: create-secret
   
   staging:
       needs: build
       name: deploy app to staging
       environment:
-        name: prod
-      runs-on: ubuntu-latest
-      steps:
-        - name: azure deploy staging
-          uses: Azure/k8s-deploy@v1
-          with:
-            manifests: |
-              manifests/deployment.yml
-              manifests/service2.yml
-            images: |
-              docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
-            imagepullsecrets: |
-              demo-k8s-secret
-
-  prod:
-      needs: build
-      name: deploy app to prod
-      environment:
         name: staging
       runs-on: ubuntu-latest
       steps:
-        - name: azure deploy prod
-          uses: Azure/k8s-deploy@v1
-          with:
-            manifests: |
-              manifests/deployment.yml
-              manifests/prodservice.yml
-            images: |
-              docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
-            imagepullsecrets: |
-              demo-k8s-secret
+        
+      - name: login to AKS cluster
+        uses: azure/aks-set-context@v1
+        with:
+          creds: '${{ secrets.AZURE_CRED }}' # Azure credentials
+          resource-group: demoAks
+          cluster-name: demoAks1
+ 
+      - name: Set K8s secret for pulling container image
+        uses: azure/k8s-create-secret@v1
+        with:
+          namespace: 'default'
+          container-registry-url: ' docker.pkg.github.com'
+          container-registry-username: ${{ github.actor }}
+          container-registry-password: ${{ secrets.GITHUBTOKEN }}
+          secret-name: 'demo-k8s-secret'
+        id: create-secret
+        
+      - name: azure deploy staging
+        uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            manifests/deployment.yml
+            manifests/service2.yml
+          images: |
+            docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
+          imagepullsecrets: |
+            demo-k8s-secret
+
+  prod:
+      needs: staging
+      name: deploy app to prod
+      environment:
+        name: prod
+      runs-on: ubuntu-latest
+      steps:
+        
+      - name: login to AKS cluster
+        uses: azure/aks-set-context@v1
+        with:
+          creds: '${{ secrets.AZURE_CRED }}' # Azure credentials
+          resource-group: demoAks
+          cluster-name: demoAks1
+ 
+      - name: Set K8s secret for pulling container image
+        uses: azure/k8s-create-secret@v1
+        with:
+          namespace: 'default'
+          container-registry-url: ' docker.pkg.github.com'
+          container-registry-username: ${{ github.actor }}
+          container-registry-password: ${{ secrets.GITHUBTOKEN }}
+          secret-name: 'demo-k8s-secret'
+        id: create-secret
+        
+      - name: azure deploy prod
+        uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            manifests/deployment.yml
+            manifests/prodservice.yml
+          images: |
+            docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
+          imagepullsecrets: |
+            demo-k8s-secret
