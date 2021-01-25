@@ -45,6 +45,6 @@ jobs:
           manifests/deployment.yml
           manifests/service2.yml
         images: |
-          docker.pkg.github.com/robertefreeman/hello-demo/hellodemo
+          docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:latest
         imagepullsecrets: |
           demo-k8s-secret
