@@ -37,8 +37,26 @@ jobs:
         container-registry-password: ${{ secrets.GITHUBTOKEN }}
         secret-name: 'demo-k8s-secret'
       id: create-secret
-   
-    - name: deploy app to aks
+  
+  staging:
+      needs: build
+      name: deploy app to prod
+      environment:
+        name: staging
+      uses: Azure/k8s-deploy@v1
+      with:
+        manifests: |
+          manifests/deployment.yml
+          manifests/service2.yml
+        images: |
+          docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
+        imagepullsecrets: |
+          demo-k8s-secret
+  prod:
+      needs: Build
+      name: deploy app to staging
+      environment:
+        name: prod
       uses: Azure/k8s-deploy@v1
       with:
         manifests: |
