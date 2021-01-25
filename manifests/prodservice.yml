@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloapp-service 
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    protocol: TCP	
+    targetPort: 8000
+  selector:
+    app: hello-app
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: helloapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: hello.24798a77325c49f9a4b6.eastus2.aksapp.io
+    http:
+      paths:
+      - backend:
+          serviceName: helloapp-service
+          servicePort: 80
+        path: /
