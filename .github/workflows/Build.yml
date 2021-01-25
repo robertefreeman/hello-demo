@@ -27,15 +27,17 @@ jobs:
         creds: '${{ secrets.AZURE_CRED }}' # Azure credentials
         resource-group: demoAks
         cluster-name: demoAks1
-    
-    - name: create k8s secret for pulling container image
-      uses: azure/k8s-actions/k8s-create-secret@master
+ 
+    - name: Set K8s secret for pulling container image
+      uses: azure/k8s-create-secret@v1
       with:
-        container-registry-url: docker.pkg.github.com
+        namespace: 'default'
+        container-registry-url: ' docker.pkg.github.com'
         container-registry-username: ${{ github.actor }}
         container-registry-password: ${{ secrets.GITHUBTOKEN }}
-        secret-name: demo-k8s-secret
-    
+        secret-name: 'demo-k8s-secret'
+      id: create-secret
+   
     - name: deploy app to aks
       uses: Azure/k8s-deploy@v1
       with:
