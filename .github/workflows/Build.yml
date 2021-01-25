@@ -18,7 +18,7 @@ jobs:
         password: ${{ secrets.GITHUBTOKEN }}
         registry: docker.pkg.github.com
         repository: robertefreeman/hello-demo/hellodemo
-        tags: latest, ${{ github.run_number }}
+        tags: ${{ github.sha }} 
         tag_with_ref: true
 
     - name: login to AKS cluster
@@ -45,6 +45,6 @@ jobs:
           manifests/deployment.yml
           manifests/service2.yml
         images: |
-          docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:latest
+          docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
         imagepullsecrets: |
           demo-k8s-secret
