@@ -1,0 +1,22 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-deploystaging
+  labels:
+    app: hello-appstaging
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-appstaging
+  template:
+    metadata:
+      labels:
+        app: hello-appstaging
+    spec:
+      containers:
+      - name: hellostaging
+        image: docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:latest
+        ports:
+        - containerPort: 8000
