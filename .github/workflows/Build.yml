@@ -48,3 +48,8 @@ jobs:
           docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
         imagepullsecrets: |
           demo-k8s-secret
+    
+    - name: cleanup old packages
+      uses: actions/delete-package-versions@v1
+      with:
+        package-name: 'hellodemo'
