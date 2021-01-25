@@ -53,7 +53,7 @@ jobs:
         uses: Azure/k8s-deploy@v1
         with:
           manifests: |
-            manifests/deployment.yml
+            manifests/deploystaging.yml
             manifests/service2.yml
           images: |
             docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
