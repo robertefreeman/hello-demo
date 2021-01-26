@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import escape
 import socket
 
 app = Flask(__name__)
@@ -7,7 +8,7 @@ app = Flask(__name__)
 def hello():
     hostname = socket.gethostname()
     verbiage = 'Hello!!! You have been served by Countainer: ' + hostname
-    return escape(verbiage)
+    return str(escape(verbiage))
 
 @app.route('/welcome/<name>')
 def Welcome_name(name):
