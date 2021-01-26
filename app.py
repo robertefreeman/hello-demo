@@ -7,7 +7,7 @@ app = Flask(__name__)
 def hello():
     hostname = socket.gethostname()
     verbiage = 'Hello!!! You have been served by Countainer: ' + hostname
-    return verbiage
+    return escape(verbiage)
 
 @app.route('/welcome/<name>')
 def Welcome_name(name):
