@@ -11,5 +11,9 @@
 
 with automated build, deploy and security!
 
+[Prod Deployment](http://hello.24798a77325c49f9a4b6.eastus2.aksapp.io "Hello APP")
+
+[Staging Deployment](http://hellostaging.24798a77325c49f9a4b6.eastus2.aksapp.io "Hello APP")
+
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
