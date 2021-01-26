@@ -67,6 +67,9 @@ jobs:
         name: prod
       runs-on: ubuntu-latest
       steps:
+
+      - name: Checkout github code
+        uses: actions/checkout@master
         
       - name: login to AKS cluster
         uses: azure/aks-set-context@v1
