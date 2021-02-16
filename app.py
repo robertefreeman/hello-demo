@@ -8,8 +8,8 @@ app = Flask(__name__)
 def hello():
     hostname = socket.gethostname()
     verbiage = 'Hello!!! You have been served by Countainer: ' + hostname
-    return str(escape(verbiage))
-
+    return verbiage
+               
 @app.route('/welcome/<name>')
 def Welcome_name(name):
     hostname = socket.gethostname()
@@ -17,4 +17,4 @@ def Welcome_name(name):
     return str(escape(verbiage))
   
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=False)
+    app.run(host="0.0.0.0", port=8000, debug=true)
