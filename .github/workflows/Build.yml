@@ -98,3 +98,14 @@ jobs:
             docker.pkg.github.com/robertefreeman/hello-demo/hellodemo:${{ github.sha }} 
           imagepullsecrets: |
             demo-k8s-secret
+      
+  cleanup:
+      needs: prod
+      name: delete oldest existing container image
+      runs-on: ubuntu-latest
+      steps:
+
+      - name: Delete Image
+        uses: actions/delete-package-versions@v1
+        with:
+          package-name: 'hellodemo'
