@@ -1,4 +1,4 @@
-FROM python:rc-alpine3.13
+FROM python:apline
 ADD . /code
 WORKDIR /code
 RUN pip install -r requirements.txt
